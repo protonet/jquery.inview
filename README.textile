@@ -15,8 +15,8 @@ The script makes use of the new $.contains method - so it will only work with jQ
 The event will only fire when the element comes in to view of the viewport, and out of view. It won't keep firing if the user scrolls and the element remains in view.
 
 The variable after the event argument indicates the visible state in the viewport.
-The third variable visiblePartX detects which horizontal part of the element is visible to the user (possible values: left, right, both)
-The fourth variable visiblePartY detects which vertical part of the element is visible to the user (possible values: top, bottom, both)
+The third variable visiblePartX detects which horizontal part of the element is visible to the user (possible values: left, right, both, middle)
+The fourth variable visiblePartY detects which vertical part of the element is visible to the user (possible values: top, bottom, both, middle)
 
 bc.. $('div').bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
   if (isInView) {
@@ -25,6 +25,8 @@ bc.. $('div').bind('inview', function(event, isInView, visiblePartX, visiblePart
       // top part of element is visible
     } else if (visiblePartY == 'bottom') {
       // bottom part of element is visible
+	} else if (visiblePartY == 'middle) {
+	  // element is larger than the viewport, top and bottom are offscreen, but middle is visible
     } else {
       // whole part of element is visible
     }

@@ -257,6 +257,41 @@ window['jQuery 1.6'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.7
       start();
     });
   });
+  
+  asyncTest('Check visiblePartX & visiblePartY parameters #4', function() {
+    expect(2);
+
+    this.element.css({
+      top: '-25px',
+      left: '0',
+	  height: $(window).height() + 50 + "px"
+    }).appendTo('body');
+
+    this.element.bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
+      equal(visiblePartX, 'both', 'visiblePartX has correct value');
+      equal(visiblePartY, 'middle', 'visiblePartY has correct value');
+      start();
+    });
+  });
+  
+  asyncTest('Check visiblePartX & visiblePartY parameters #5', function() {
+    expect(2);
+  
+    this.element.css({
+      top: '-25px',
+      left: '-25px',
+  	  height: $(window).height() + 50 + "px",
+  	  width:  $(window).width() + 50 + "px"
+    }).appendTo('body');
+  
+    this.element.bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
+      equal(visiblePartX, 'middle', 'visiblePartX has correct value');
+      equal(visiblePartY, 'middle', 'visiblePartY has correct value');
+      start();
+    });
+  });
+  
+  
 
 
   asyncTest('Check "live" events', function() {
