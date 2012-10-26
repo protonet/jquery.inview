@@ -72,7 +72,20 @@
             visiblePartX,
             visiblePartY,
             visiblePartsMerged;
-        
+
+        // for the case where 'display:none' is used in place of 'visibility:hidden'
+        // count and sum the above items to get and move closer to the correct values
+        // IMPORTANT :: insert element into container empty
+        if($element.css('display') == 'none')
+        {
+            var parentElement = $element.parent();
+  
+            elementOffset.top = parentElement.offset().top;
+            elementOffset.left = parentElement.offset().left;
+            elementSize.height = parentElement.height();
+            elementSize.width = parentElement.width();
+        }
+
         // Don't ask me why because I haven't figured out yet:
         // viewportOffset and viewportSize are sometimes suddenly null in Firefox 5.
         // Even though it sounds weird:
