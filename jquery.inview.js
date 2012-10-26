@@ -82,15 +82,15 @@
           return;
         }
         
-        if (elementOffset.top + elementSize.height > viewportOffset.top &&
-            elementOffset.top < viewportOffset.top + viewportSize.height &&
-            elementOffset.left + elementSize.width > viewportOffset.left &&
-            elementOffset.left < viewportOffset.left + viewportSize.width) {
-          visiblePartX = (viewportOffset.left > elementOffset.left ?
-            'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width) ?
+        if ((parseInt(elementOffset.top) + parseInt(elementSize.height)) > parseInt(viewportOffset.top) &&
+            parseInt(elementOffset.top) < (parseInt(viewportOffset.top) + parseInt(viewportSize.height)) &&
+            (parseInt(elementOffset.left) + parseInt(elementSize.width)) > parseInt(viewportOffset.left) &&
+            parseInt(elementOffset.left) < (parseInt(viewportOffset.left) + parseInt(viewportSize.width))) {
+          visiblePartX = (parseInt(viewportOffset.left) > parseInt(elementOffset.left) ?
+            'right' : (parseInt(viewportOffset.left) + parseInt(viewportSize.width)) < (parseInt(elementOffset.left) + parseInt(elementSize.width)) ?
             'left' : 'both');
-          visiblePartY = (viewportOffset.top > elementOffset.top ?
-            'bottom' : (viewportOffset.top + viewportSize.height) < (elementOffset.top + elementSize.height) ?
+          visiblePartY = (parseInt(viewportOffset.top) > parseInt(elementOffset.top) ?
+            'bottom' : (parseInt(viewportOffset.top) + parseInt(viewportSize.height)) < (parseInt(elementOffset.top) + parseInt(elementSize.height)) ?
             'top' : 'both');
           visiblePartsMerged = visiblePartX + "-" + visiblePartY;
           if (!inView || inView !== visiblePartsMerged) {
