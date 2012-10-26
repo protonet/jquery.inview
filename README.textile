@@ -41,6 +41,12 @@ p. Remember you can also bind once:
 
 bc.. $('div').one('inview', fn);
 
+p. When used element with 'display: none', put it in an empty container
+
+bc.. <div>
+  <p style="display:none">Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum</p>
+</div>
+
 h2. Live events
 
 Yep, inview events can also be used with .live/.delegate methods.
