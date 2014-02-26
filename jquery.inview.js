@@ -105,7 +105,8 @@
         if (elementOffset.top + elementSize.height > viewportOffset.top &&
             elementOffset.top < viewportOffset.top + viewportSize.height &&
             elementOffset.left + elementSize.width > viewportOffset.left &&
-            elementOffset.left < viewportOffset.left + viewportSize.width) {
+            elementOffset.left < viewportOffset.left + viewportSize.width &&
+            $element.is(":visible")) {
           visiblePartX = (viewportOffset.left > elementOffset.left ?
             'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width) ?
             'left' : 'both');
