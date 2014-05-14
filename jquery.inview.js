@@ -4,12 +4,25 @@
  *    - forked from http://github.com/zuk/jquery.inview/
  */
 (function ($) {
+  var guid = (function() {
+      function s4() {
+          return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return function() {
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+      };
+  })();
+    
   var inviewObjects = {}, viewportSize, viewportOffset,
       d = document, w = window, documentElement = d.documentElement, expando = $.expando, timer;
 
   $.event.special.inview = {
     add: function(data) {
-      inviewObjects[data.guid + "-" + this[expando]] = { data: data, $element: $(this) };
+      data.unique = guid();
+      inviewObjects[data.guid + "-" + data.unique] = { data: data, $element: $(this) };
 
       // Use setInterval in order to also make sure this captures elements within
       // "overflow:scroll" elements or elements that appeared in the dom tree due to
@@ -27,7 +40,7 @@
     },
 
     remove: function(data) {
-      try { delete inviewObjects[data.guid + "-" + this[expando]]; } catch(e) {}
+      try { delete inviewObjects[data.guid + "-" + data.unique]; } catch(e) {}
 
       // Clear interval when we no longer have any elements listening
       if ($.isEmptyObject(inviewObjects)) {
