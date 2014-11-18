@@ -177,6 +177,24 @@ window['jQuery 1.6'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.7
   });
 
 
+  asyncTest('Check whether element that is hidden triggers the callback', function() {
+    expect(0);
+
+    this.element.bind('inview', function(event, isInView) {
+      ok(false, 'Callback should\'t be fired since the element is hidden');
+      start();
+    });
+
+    this.element.css({
+      top: '0',
+      left: '0',
+      display: 'none'
+    }).appendTo('body');
+
+    setTimeout(function() { start(); }, 1000);
+  });
+
+
   asyncTest('Check whether element which is on the top outside of viewport is not firing the event', function() {
     expect(0);
 
@@ -261,7 +279,7 @@ window['jQuery 1.6'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.7
 
   asyncTest('Check "live" events', function() {
     expect(3);
-    
+
     var that = this,
         elems = $("body .test-container > div.test-element");
     elems.live("inview", function(event) {
@@ -329,7 +347,7 @@ window['jQuery 1.6'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.7
       }
     });
   });
-  
+
   if (!("ontouchstart" in window)) {
     asyncTest('Scroll to element via focus()', function() {
       // This test will fail on iOS
