@@ -18,9 +18,9 @@
       //
       // By the way, iOS (iPad, iPhone, ...) seems to not execute, or at least delays
       // intervals while the user scrolls. Therefore the inview event might fire a bit late there
-      // 
+      //
       // Don't waste cycles with an interval until we get at least one element that
-      // has bound to the inview event.  
+      // has bound to the inview event.
       if (!timer && !$.isEmptyObject(inviewObjects)) {
          timer = setInterval(checkInView, 250);
       }
@@ -89,10 +89,22 @@
             elementSize   = { height: $element.height(), width: $element.width() },
             elementOffset = $element.offset(),
             inView        = $element.data('inview'),
+            offset        = 0,
+            offsetLeft    = 0,
+            offsetTop     = 0,
             visiblePartX,
             visiblePartY,
             visiblePartsMerged;
-        
+
+        if (offset = $element.data('offset')) {
+          offsetLeft = offset;
+          offsetTop = offset;
+        } else if (offset = $element.data('offset-left')) {
+          offsetLeft = offset;
+        } else if (offset = $element.data('offset-top')) {
+          offsetTop = offset;
+        }
+
         // Don't ask me why because I haven't figured out yet:
         // viewportOffset and viewportSize are sometimes suddenly null in Firefox 5.
         // Even though it sounds weird:
@@ -101,11 +113,11 @@
         if (!viewportOffset || !viewportSize) {
           return;
         }
-        
-        if (elementOffset.top + elementSize.height > viewportOffset.top &&
-            elementOffset.top < viewportOffset.top + viewportSize.height &&
-            elementOffset.left + elementSize.width > viewportOffset.left &&
-            elementOffset.left < viewportOffset.left + viewportSize.width) {
+
+        if (elementOffset.top + elementSize.height > viewportOffset.top - offsetTop &&
+            elementOffset.top < viewportOffset.top + viewportSize.height + offsetTop &&
+            elementOffset.left + elementSize.width > viewportOffset.left - offsetLeft &&
+            elementOffset.left < viewportOffset.left + viewportSize.width + offsetLeft) {
           visiblePartX = (viewportOffset.left > elementOffset.left ?
             'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width) ?
             'left' : 'both');
@@ -123,10 +135,10 @@
     }
   }
 
-  $(w).bind("scroll resize scrollstop", function() {
+  $(w).bind("scroll resize", function() {
     viewportSize = viewportOffset = null;
   });
-  
+
   // IE < 9 scrolls to focused elements without firing the "scroll" event
   if (!documentElement.addEventListener && documentElement.attachEvent) {
     documentElement.attachEvent("onfocusin", function() {
