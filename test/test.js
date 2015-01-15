@@ -292,6 +292,30 @@ window['jQuery 1.11'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.
     });
   }
 
+
+  // the one event was introduced in jQuery version 1.7
+  if (window['jQuery 1.11'].versioncompare('1.7', $.fn.jquery) <= 0) {
+    QUnit.test('Check "one" events', function (assert) {
+      var done = assert.async();
+      assert.expect(3);
+
+      var that = this,
+          elems = $("body .test-container > div.test-element");
+      this.element.one("inview", elems, function (event) {
+        assert.ok(true, "Live event correctly fired");
+        assert.equal(event.currentTarget, that.element[0], "event.currentTarget correctly set");
+        assert.equal(this, that.element[0], "Handler bound to target element");
+        done();
+      });
+
+      this.element.css({
+        top: '0',
+        left: '0'
+      }).appendTo(this.container);
+    });
+  }
+
+
   QUnit.test('Check "delegate" events', function(assert) {
     var done = assert.async();
     assert.expect(3);
@@ -326,6 +350,7 @@ window['jQuery 1.11'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.
     }).appendTo(this.container);
   });
 
+
   QUnit.test('Check multiple elements', function(assert) {
     var done = assert.async();
     assert.expect(2);
@@ -344,6 +369,7 @@ window['jQuery 1.11'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.
       }
     });
   });
+
 
   if (!("ontouchstart" in window)) {
     QUnit.test('Scroll to element via focus()', function(assert) {
