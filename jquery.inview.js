@@ -99,10 +99,10 @@
         if (offset = $element.data('offset')) {
           offsetLeft = offset;
           offsetTop = offset;
-        } else if (offset = $element.data('offset-left')) {
-          offsetLeft = offset;
         } else if (offset = $element.data('offset-top')) {
           offsetTop = offset;
+        } else if (offset = $element.data('offset-left')) {
+          offsetLeft = offset;
         }
 
         // Don't ask me why because I haven't figured out yet:
