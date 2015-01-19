@@ -217,6 +217,407 @@ window['jQuery 1.11'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.
     setTimeout(function() { done(); }, 1000);
   });
 
+  // tests for offset
+  QUnit.test('Check whether element which is on the top outside of viewport and has offset is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: '-200px',
+      left: '0'
+    }).data('offset', '150')
+      .appendTo('body')
+      .bind('inview', function(event) { calls++; });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ top: '-49px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the bottom outside of viewport and has offset is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: this.size + 'px',
+      left: '0'
+    })
+        .data('offset', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ top: window.innerHeight + 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the left outside of viewport and has offset is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: 0,
+      left: window.innerWidth + 150 + 'px'
+    })
+        .data('offset', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ left: window.innerWidth + 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the right outside of viewport and has offset is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: 0,
+      left: -element.width() - 150 + 'px'
+    })
+        .data('offset', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ left: -element.width() - 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  // tests for offset-top
+  QUnit.test('Check whether element which is on the top outside of viewport and has offset-top is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: '-200px',
+      left: '0'
+    }).data('offset-top', '150')
+        .appendTo('body')
+        .bind('inview', function(event) { calls++; });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ top: '-49px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the bottom outside of viewport and has offset-top is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: this.size + 'px',
+      left: '0'
+    })
+        .data('offset-top', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ top: window.innerHeight + 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the left outside of viewport and has offset-top is not firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: 0,
+      left: window.innerWidth + 150 + 'px'
+    })
+        .data('offset-top', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ left: window.innerWidth + 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 0, 'Callback hasn\'t been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the right outside of viewport and has offset-top is not firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: 0,
+      left: -element.width() - 150 + 'px'
+    })
+        .data('offset-top', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ left: -element.width() - 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 0, 'Callback hasn\'t been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  // tests for offset-left
+  QUnit.test('Check whether element which is on the top outside of viewport and has offset-left is not firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: '-200px',
+      left: '0'
+    }).data('offset-left', '150')
+        .appendTo('body')
+        .bind('inview', function(event) { calls++; });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ top: '-51px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 0, 'Callback hasn\t been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the bottom outside of viewport and has offset-left is not firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: this.size + 'px',
+      left: '0'
+    })
+        .data('offset-left', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ top: window.innerHeight + 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 0, 'Callback hasn\'t been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the left outside of viewport and has offset-left is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: 0,
+      left: window.innerWidth + 150 + 'px'
+    })
+        .data('offset-left', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ left: window.innerWidth + 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
+
+  QUnit.test('Check whether element which is on the right outside of viewport and has offset-left is firing the event', function (assert) {
+    var done = assert.async();
+    assert.expect(2);
+
+    var element = this.element,
+        calls = 0;
+
+    element.css({
+      top: 0,
+      left: -element.width() - 150 + 'px'
+    })
+        .data('offset-left', 150)
+        .appendTo('body')
+        .bind('inview', function() {
+          calls++;
+        });
+
+    setTimeout(function () {
+
+      assert.equal(calls, 0, 'Callback hasn\'t been fired since the element isn\'t in the viewport');
+      element.css({ left: -element.width() - 149 + 'px' });
+
+      setTimeout(function () {
+
+        assert.equal(calls, 1, 'Callback has been fired after the element appeared in the viewport');
+        done();
+
+      }, 1000);
+
+    }, 1000);
+
+  });
+
 
   QUnit.test('Check visiblePartX & visiblePartY parameters #1', function(assert) {
     var done = assert.async();
