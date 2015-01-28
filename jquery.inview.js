@@ -96,7 +96,6 @@
             visiblePartY,
             visiblePartsMerged;
 
-
         if (offset = $element.data('offset')) {
           offsetLeft = offset;
           offsetTop = offset;
@@ -118,7 +117,7 @@
         if (elementOffset.top + elementSize.height > viewportOffset.top - offsetTop &&
             elementOffset.top < viewportOffset.top + viewportSize.height + offsetTop &&
             elementOffset.left + elementSize.width > viewportOffset.left - offsetLeft &&
-            elementOffset.left < viewportOffset.left + viewportSize.width - offsetLeft) {
+            elementOffset.left < viewportOffset.left + viewportSize.width + offsetLeft) {
           visiblePartX = (viewportOffset.left > elementOffset.left ?
             'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width) ?
             'left' : 'both');

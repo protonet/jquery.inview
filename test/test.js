@@ -294,11 +294,11 @@ window['jQuery 1.11'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.
       top: 0,
       left: window.innerWidth + 150 + 'px'
     })
-        .data('offset', 150)
-        .appendTo('body')
-        .bind('inview', function() {
-          calls++;
-        });
+      .data('offset', 150)
+      .appendTo('body')
+      .bind('inview', function() {
+        calls++;
+      });
 
     setTimeout(function () {
 
