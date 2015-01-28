@@ -66,12 +66,12 @@
   }
 
   function checkInView() {
-    var $elements = $(), elementsLength, i = 0;
+    var $elements = [], elementsLength, i = 0;
 
     $.each(inviewObjects, function(i, inviewObject) {
       var selector  = inviewObject.data.selector,
           $element  = inviewObject.$element;
-      $elements = $elements.add(selector ? $element.find(selector) : $element);
+      $elements.push(selector ? $element.find(selector) : $element);
     });
 
     elementsLength = $elements.length;
@@ -81,7 +81,7 @@
 
       for (; i<elementsLength; i++) {
         // Ignore elements that are not in the DOM tree
-        if (!$.contains(documentElement, $elements[i])) {
+        if (!$.contains(documentElement, $elements[i][0])) {
           continue;
         }
 
@@ -95,6 +95,7 @@
             visiblePartX,
             visiblePartY,
             visiblePartsMerged;
+
 
         if (offset = $element.data('offset')) {
           offsetLeft = offset;
@@ -117,7 +118,7 @@
         if (elementOffset.top + elementSize.height > viewportOffset.top - offsetTop &&
             elementOffset.top < viewportOffset.top + viewportSize.height + offsetTop &&
             elementOffset.left + elementSize.width > viewportOffset.left - offsetLeft &&
-            elementOffset.left < viewportOffset.left + viewportSize.width + offsetLeft) {
+            elementOffset.left < viewportOffset.left + viewportSize.width - offsetLeft) {
           visiblePartX = (viewportOffset.left > elementOffset.left ?
             'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width) ?
             'left' : 'both');
@@ -135,7 +136,7 @@
     }
   }
 
-  $(w).bind("scroll resize", function() {
+  $(w).bind("scroll resize scrollstop", function() {
     viewportSize = viewportOffset = null;
   });
 
