@@ -76,8 +76,8 @@
 
     elementsLength = $elements.length;
     if (elementsLength) {
-      viewportSize   = viewportSize   || getViewportSize();
-      viewportOffset = viewportOffset || getViewportOffset();
+      viewportSize   = getViewportSize();
+      viewportOffset = getViewportOffset();
 
       for (; i<elementsLength; i++) {
         // Ignore elements that are not in the DOM tree
