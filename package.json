@@ -1,0 +1,23 @@
+{
+  "name": "jquery.inview",
+  "version": "1.0.0",
+  "description": "h1. Element 'inview' Event Plugin",
+  "main": "jquery.inview.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mage3k/jquery.inview.git"
+  },
+  "author": "mage3k <loper.tt@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mage3k/jquery.inview/issues"
+  },
+  "homepage": "https://github.com/mage3k/jquery.inview"
+}
