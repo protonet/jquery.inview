@@ -87,6 +87,28 @@ bc.. $(someMyOneDiv).bind('inview', function(e, isInView, visiblePartX, visibleP
   }
 });
 
+h2. Using offset
+
+If you use this code for lazy loading images, sometimes you are interested to preload the image when it's getting close to the view port. So you can add a offset to the target element.
+
+Add offset from 300px to all sites from the view port. Example: Your view port is 600x800 px, so the new one will be 1200x1400. All images in this area will be preloaded.
+
+```html
+<img data-offset="300">
+```
+
+Add offset from 300px to top and bottom of view port. Example: Your view port is 600x800 px, so the new one will be 600x1400.
+
+```html
+<img data-offset-top="300">
+```
+
+Add offset from 300px to left and right of the view port. Example: Your view port is 600x800 px, the new will be 1200x1400px.
+
+```html
+<img data-offset-left="300">
+```
+
 h2. How it works
 
 An interval in the background checks the position of the elements against the viewport dimensions and the scroll position.

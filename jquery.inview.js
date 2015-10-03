@@ -100,9 +100,21 @@
             elementSize   = { height: $element.height(), width: $element.width() },
             elementOffset = $element.offset(),
             inView        = $element.data('inview'),
+            offset        = 0,
+            offsetLeft    = 0,
+            offsetTop     = 0,
             visiblePartX,
             visiblePartY,
             visiblePartsMerged;
+
+        if (offset = $element.data('offset')) {
+          offsetLeft = offset;
+          offsetTop = offset;
+        } else if (offset = $element.data('offset-top')) {
+          offsetTop = offset;
+        } else if (offset = $element.data('offset-left')) {
+          offsetLeft = offset;
+        }
 
         // Don't ask me why because I haven't figured out yet:
         // viewportOffset and viewportSize are sometimes suddenly null in Firefox 5.
@@ -113,10 +125,10 @@
           return;
         }
 
-        if (elementOffset.top + elementSize.height > viewportOffset.top &&
-            elementOffset.top < viewportOffset.top + viewportSize.height &&
-            elementOffset.left + elementSize.width > viewportOffset.left &&
-            elementOffset.left < viewportOffset.left + viewportSize.width) {
+        if (elementOffset.top + elementSize.height > viewportOffset.top - offsetTop &&
+            elementOffset.top < viewportOffset.top + viewportSize.height + offsetTop &&
+            elementOffset.left + elementSize.width > viewportOffset.left - offsetLeft &&
+            elementOffset.left < viewportOffset.left + viewportSize.width + offsetLeft) {
           visiblePartX = (viewportOffset.left > elementOffset.left ?
             'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width) ?
             'left' : 'both');
