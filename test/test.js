@@ -353,4 +353,20 @@ window['jQuery 1.6'].each(['jQuery 1.4', 'jQuery 1.5', 'jQuery 1.6', 'jQuery 1.7
       }, 1000);
     });
   }
+
+  asyncTest('Check visible with offset', function() {
+    expect(3);
+
+    this.element.css({
+      top: '-100px'
+    }).data('offset', 75)
+    .appendTo('body');
+
+    this.element.bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
+      equal(isInView, true, 'inview triggered with offset');
+      equal(visiblePartX, 'both', 'visiblePartX has correct value');
+      equal(visiblePartY, 'bottom', 'visiblePartY has correct value');
+      start();
+    });
+  });
 });

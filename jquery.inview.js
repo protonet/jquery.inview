@@ -100,6 +100,7 @@
             elementSize   = { height: $element.height(), width: $element.width() },
             elementOffset = $element.offset(),
             inView        = $element.data('inview'),
+            distance      = $element.data('offset') === undefined ? 0 : $element.data('offset'),
             visiblePartX,
             visiblePartY,
             visiblePartsMerged;
@@ -113,15 +114,15 @@
           return;
         }
 
-        if (elementOffset.top + elementSize.height > viewportOffset.top &&
-            elementOffset.top < viewportOffset.top + viewportSize.height &&
-            elementOffset.left + elementSize.width > viewportOffset.left &&
-            elementOffset.left < viewportOffset.left + viewportSize.width) {
-          visiblePartX = (viewportOffset.left > elementOffset.left ?
-            'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width) ?
+        if (elementOffset.top + elementSize.height + distance > viewportOffset.top &&
+            elementOffset.top < viewportOffset.top + viewportSize.height + distance &&
+            elementOffset.left + elementSize.width + distance > viewportOffset.left &&
+            elementOffset.left < viewportOffset.left + viewportSize.width + distance) {
+          visiblePartX = (viewportOffset.left > elementOffset.left + distance ?
+            'right' : (viewportOffset.left + viewportSize.width) < (elementOffset.left + elementSize.width + distance) ?
             'left' : 'both');
-          visiblePartY = (viewportOffset.top > elementOffset.top ?
-            'bottom' : (viewportOffset.top + viewportSize.height) < (elementOffset.top + elementSize.height) ?
+          visiblePartY = (viewportOffset.top > elementOffset.top + distance ?
+            'bottom' : (viewportOffset.top + viewportSize.height) < (elementOffset.top + elementSize.height + distance) ?
             'top' : 'both');
           visiblePartsMerged = visiblePartX + "-" + visiblePartY;
           if (!inView || inView !== visiblePartsMerged) {
