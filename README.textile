@@ -1,4 +1,4 @@
-h1. Element 'inview' Event Plugin ![](https://ga-beacon.appspot.com/UA-68802128-1/jquery.inview/readme?pixel)
+h1. Element 'inview' Event Plugin
 
 Event that is fired as soon as an element appears in the user's viewport.
 
