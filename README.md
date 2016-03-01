@@ -1,6 +1,6 @@
 # Element 'inview' Event Plugin
 
-Event that is fired as soon as an element appears in the user's viewport.
+Event that is fired when an element enters or leaves the user's viewport.
 
 * **Author:** [Christopher Blum](http://twitter.com/ChristopherBlum)
 * **Original idea and concept by:** [Remy Sharp](http://remysharp.com/2009/01/26/element-in-view-event-plugin/)
