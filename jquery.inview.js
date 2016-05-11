@@ -82,6 +82,30 @@
     };
   }
 
+
+  function _getOffset(_obj){
+
+    var _rtObj = {
+        "top": 0
+      , "left": 0
+    };
+
+    function _recursive(__obj){
+      _rtObj.top += __obj.offsetTop;
+      _rtObj.left += __obj.offsetLeft;
+      if(__obj.offsetParent !== null){
+        _recursive(__obj.offsetParent);
+      }
+
+      return;
+    }
+
+    _recursive(_obj);
+
+    return _rtObj;
+  }
+
+
   function checkInView() {
     if (!inviewObjects.length) {
       return;
@@ -104,8 +128,12 @@
 
       var $element      = $($elements[i]),
           elementSize   = { height: $element[0].offsetHeight, width: $element[0].offsetWidth },
-          elementOffset = $element.offset(),
-          inView        = $element.data('inview');
+          elementOffset = _getOffset($element[0]),
+          inView        = $element.data('inview'),
+          cZoom = $('body').css('zoom') != 1 ? $('body').css('zoom') : $('html').css('zoom');
+      if(cZoom == undefined || cZoom == null || cZoom == false){
+        cZoom = 1;
+      }
 
       // Don't ask me why because I haven't figured out yet:
       // viewportOffset and viewportSize are sometimes suddenly null in Firefox 5.
@@ -115,11 +143,12 @@
       if (!viewportOffset || !viewportSize) {
         return;
       }
+      
+      if ((elementOffset.top + elementSize.height) * cZoom > viewportOffset.top &&
+          elementOffset.top * cZoom  < viewportOffset.top + viewportSize.height &&
+          (elementOffset.left + elementSize.width) * cZoom > viewportOffset.left &&
+          elementOffset.left  * cZoom < viewportOffset.left + viewportSize.width) {
 
-      if (elementOffset.top + elementSize.height > viewportOffset.top &&
-          elementOffset.top < viewportOffset.top + viewportSize.height &&
-          elementOffset.left + elementSize.width > viewportOffset.left &&
-          elementOffset.left < viewportOffset.left + viewportSize.width) {
         if (!inView) {
           $element.data('inview', true).trigger('inview', [true]);
         }
