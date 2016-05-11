@@ -83,26 +83,26 @@
   }
 
 
-  function _getOffset(_obj){
+  function getOffset(obj){
 
-    var _rtObj = {
+    var rtObj = {
         "top": 0
       , "left": 0
     };
 
-    function _recursive(__obj){
-      _rtObj.top += __obj.offsetTop;
-      _rtObj.left += __obj.offsetLeft;
-      if(__obj.offsetParent !== null){
-        _recursive(__obj.offsetParent);
+    function recursive(_obj){
+      rtObj.top += _obj.offsetTop;
+      rtObj.left += _obj.offsetLeft;
+      if(_obj.offsetParent !== null){
+        recursive(_obj.offsetParent);
       }
 
       return;
     }
 
-    _recursive(_obj);
+    recursive(obj);
 
-    return _rtObj;
+    return rtObj;
   }
 
 
@@ -128,7 +128,7 @@
 
       var $element      = $($elements[i]),
           elementSize   = { height: $element[0].offsetHeight, width: $element[0].offsetWidth },
-          elementOffset = _getOffset($element[0]),
+          elementOffset = getOffset($element[0]),
           inView        = $element.data('inview'),
           cZoom = $('body').css('zoom') != 1 ? $('body').css('zoom') : $('html').css('zoom');
       if(cZoom == undefined || cZoom == null || cZoom == false){
