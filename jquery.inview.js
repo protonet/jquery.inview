@@ -133,6 +133,16 @@
           cZoom = $('body').css('zoom') != 1 ? $('body').css('zoom') : $('html').css('zoom');
       if(cZoom == undefined || cZoom == null || cZoom == false){
         cZoom = 1;
+
+        // if firefox
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.indexOf('firefox') !== -1){
+          var tr = $('body')[0].style.transform != '' ? $('body')[0].style.transform : $('html')[0].style.transform;
+          if(tr != ''){
+            // if only scale...
+            cZoom = tr.match(/\((.+)\)/)[1];
+          }
+        }
       }
 
       // Don't ask me why because I haven't figured out yet:
