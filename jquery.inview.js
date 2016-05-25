@@ -154,20 +154,19 @@
       }
 
       if(ua.indexOf("msie") !== -1 || appVersion.match(/trident/)){
-        // if($('body').css('-ms-zoom') != 1 || $('body').css('-ms-zoom') != undefined){
-        //   cZoom = $('body').css('-ms-zoom');
-        // }else{
-        //   cZoom = $('html').css('-ms-zoom');
-        // }
+        if($('body').css('-ms-zoom') != 1 || $('body').css('-ms-zoom') != undefined){
+          cZoom = $('body').css('-ms-zoom');
+        }else{
+          cZoom = $('html').css('-ms-zoom');
+        }
+        
         if(cZoom == undefined){
           cZoom = 1;
-          console.log('if zoom: ' + cZoom);
         }else{
           cZoom = parseFloat(cZoom);
           cZoom = cZoom / 100;
-
-          console.log('else zoom: ' + cZoom);
         }
+
       }
 
       // console.log('zoom: ' + cZoom);
