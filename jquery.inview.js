@@ -82,6 +82,30 @@
     };
   }
 
+
+  function getOffset(obj){
+
+    var rtObj = {
+        "top": 0
+      , "left": 0
+    };
+
+    function recursive(_obj){
+      rtObj.top += _obj.offsetTop;
+      rtObj.left += _obj.offsetLeft;
+      if(_obj.offsetParent !== null){
+        recursive(_obj.offsetParent);
+      }
+
+      return;
+    }
+
+    recursive(obj);
+
+    return rtObj;
+  }
+
+
   function checkInView() {
     if (!inviewObjects.length) {
       return;
@@ -104,8 +128,51 @@
 
       var $element      = $($elements[i]),
           elementSize   = { height: $element[0].offsetHeight, width: $element[0].offsetWidth },
-          elementOffset = $element.offset(),
-          inView        = $element.data('inview');
+          elementOffset = getOffset($element[0]),
+          inView        = $element.data('inview'),
+          cZoom = $('body').css('zoom') != 1 ? $('body').css('zoom') : $('html').css('zoom');
+
+
+      var 
+        ua = window.navigator.userAgent.toLowerCase(),
+        appVersion = window.navigator.appVersion.toLowerCase()
+      ;
+
+      if(cZoom == undefined || cZoom == null || cZoom == false){
+        cZoom = 1;
+
+        // if firefox
+        if(ua.indexOf('firefox') !== -1){
+          var tr = $('body')[0].style.transform != '' ? $('body')[0].style.transform : $('html')[0].style.transform;
+          if(tr != ''){
+            // if only scale...
+            cZoom = tr.match(/\((.+)\)/)[1];
+          }
+        }
+
+
+      }
+
+      if(ua.indexOf("msie") !== -1 || appVersion.match(/trident/)){
+        if($('body').css('-ms-zoom') != 1 || $('body').css('-ms-zoom') != undefined){
+          cZoom = $('body').css('-ms-zoom');
+        }else{
+          cZoom = $('html').css('-ms-zoom');
+        }
+        
+        if(cZoom == undefined){
+          cZoom = 1;
+        }else{
+          cZoom = parseFloat(cZoom);
+          cZoom = cZoom / 100;
+        }
+
+      }
+
+      // console.log('zoom: ' + cZoom);
+      // console.log('ua: ' + ua);
+      // window.alert('zoom: ' + cZoom);
+
 
       // Don't ask me why because I haven't figured out yet:
       // viewportOffset and viewportSize are sometimes suddenly null in Firefox 5.
@@ -115,11 +182,12 @@
       if (!viewportOffset || !viewportSize) {
         return;
       }
+      
+      if ((elementOffset.top + elementSize.height) * cZoom > viewportOffset.top &&
+          elementOffset.top * cZoom  < viewportOffset.top + viewportSize.height &&
+          (elementOffset.left + elementSize.width) * cZoom > viewportOffset.left &&
+          elementOffset.left  * cZoom < viewportOffset.left + viewportSize.width) {
 
-      if (elementOffset.top + elementSize.height > viewportOffset.top &&
-          elementOffset.top < viewportOffset.top + viewportSize.height &&
-          elementOffset.left + elementSize.width > viewportOffset.left &&
-          elementOffset.left < viewportOffset.left + viewportSize.width) {
         if (!inView) {
           $element.data('inview', true).trigger('inview', [true]);
         }
