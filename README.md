@@ -1,6 +1,6 @@
 # Don't use inview
 
-Stop mantaing this in favor of [intersection observer](https://github.com/jeremenichelli/intersection-observer-polyfill), use that instead
+Stop mantaing this in favor of [intersection observer](https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill), use that instead
 
 # Element 'inview' Event Plugin
 
