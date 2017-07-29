@@ -1,3 +1,7 @@
+# Don't use inview
+
+Stop mantaing this in favor of [intersection observer](https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill), use that instead
+
 # Element 'inview' Event Plugin
 
 Event that is fired as soon as an element appears in the user's viewport.
