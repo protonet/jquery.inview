@@ -50,7 +50,7 @@ window['jQuery 1.8'].each(['jQuery 1.8', 'jQuery 1.12', 'jQuery 2.2'], function(
 
     setTimeout(function() {
       $(window).scrollTop(0).scrollLeft(0);
-      ok(!firstCall, 'inview shouldn\'t be triggered initially when the element isn\'t in the viewport');
+      ok(firstCall, 'Triggered handler initially even when the element isn\'t in the viewport');
       element.unbind('inview.firstCall');
       element.bind('inview.secondCall', function(event, inViewParam) {
         secondCall = true;
@@ -99,7 +99,7 @@ window['jQuery 1.8'].each(['jQuery 1.8', 'jQuery 1.12', 'jQuery 2.2'], function(
     setTimeout(function() {
       $(window).scrollTop(0).scrollLeft(0);
 
-      ok(!firstCall, 'inview shouldn\'t be triggered initially when the element isn\'t in the viewport');
+      ok(firstCall, 'Triggered handler initially even when the element isn\'t in the viewport');
       element.unbind('inview.firstCall');
       element.bind('inview.secondCall', function(event, inViewParam) {
         secondCall = true;

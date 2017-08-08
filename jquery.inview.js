@@ -123,7 +123,7 @@
         if (!inView) {
           $element.data('inview', true).trigger('inview', [true]);
         }
-      } else if (inView) {
+      } else if (inView || typeof inView === 'undefined') {
         $element.data('inview', false).trigger('inview', [false]);
       }
     }
