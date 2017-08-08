@@ -129,7 +129,7 @@
     }
   }
 
-  $(w).bind("scroll resize scrollstop", function() {
+  $(w).on("scroll resize scrollstop", function() {
     viewportSize = viewportOffset = null;
   });
 
