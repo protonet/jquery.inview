@@ -15,7 +15,7 @@
     "url": "git+https://github.com/protonet/jquery.inview.git"
   },
   "author": "Christopher Blum <christopher.blum@spellboy.com>",
-  "license": "ISC",
+  "license": "WTFPL",
   "bugs": {
     "url": "https://github.com/jardix22/jquery.inview/issues"
   },
