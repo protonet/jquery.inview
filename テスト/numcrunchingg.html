@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>数当てゲーム</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="初めて自作した、シンプルなミニゲームです。">
+
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/fuwaimg.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <script src="../js/numcrunchingg.js"></script>
+</head>
+<body>
+
+<center>
+<h2 class="h2-a">数当てゲーム</h2>
+    <p>１から100までの数字を当てるシンプルなゲームです。<br>
+      ※半角数字で入力してください。</p>
+
+      <section class="numcrunchingg">
+        <input type="number" name="randomNumberN" id="randomNumberI" size="4" value="0">
+        <input type="button" id="checkbutton" value="当ててみる" onclick="judge();">
+        <section  id="output"></section>
+      </section>
+
+
+</center>
+
+</body>
+
+</html>
